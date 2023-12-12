@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/mapped-types';
-import { IsDateString, IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateTaskDto {
   @IsNotEmpty()
@@ -15,14 +15,13 @@ export class CreateTaskDto {
   priority: string;
 
   @IsNotEmpty()
-  @IsDateString()
+  @IsString()
   deadline: Date;
 
   @IsNotEmpty()
   @IsString()
   state: string;
 
-  @IsNotEmpty()
   @IsString()
   remarks: string;
 }
