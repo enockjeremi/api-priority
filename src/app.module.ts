@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseModule } from './database/database.module';
 
 import * as Joi from 'joi';
 import config from './config';
@@ -18,6 +19,7 @@ import config from './config';
         DB_NAME: Joi.string().required(),
       }),
     }),
+    DatabaseModule,
   ],
 })
 export class AppModule {}

@@ -2,6 +2,9 @@
 /dist
 /node_modules
 db
+.env
+.stag.env
+.prod.env
 
 # Logs
 logs
