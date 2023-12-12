@@ -1,0 +1,23 @@
+services:
+  priority:
+    image: postgres
+    container_name: priority
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: priority
+      POSTGRES_USER: enock
+      POSTGRES_PASSWORD: enock
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
+  pgpriority:
+    image: dpage/pgadmin4
+
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=marines
+
+    ports:
+      - 5055:80
