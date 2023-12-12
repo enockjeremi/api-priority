@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import {
   Column,
   CreateDateColumn,
@@ -29,6 +30,7 @@ export class Tasks {
   @Column({ type: String })
   remarks: string;
 
+  @Exclude()
   @CreateDateColumn({
     type: 'timestamptz',
     name: 'create_at',
@@ -36,6 +38,7 @@ export class Tasks {
   })
   createAt: Date;
 
+  @Exclude()
   @UpdateDateColumn({
     type: 'timestamptz',
     name: 'update_at',
