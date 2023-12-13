@@ -1,40 +1,24 @@
 import { Exclude } from 'class-transformer';
+import { Tasks } from '../../../tasks/entities/task.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Status } from '../attributes/entities/status.entity';
-import { Priority } from '../attributes/entities/priority.entity';
 
 @Entity()
-export class Tasks {
+export class Status {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: String })
-  name: string;
+  status: string;
 
-  @Column({ type: String })
-  goals: string;
-
-  @Column({ type: String })
-  deadline: Date;
-
-  @Column({ type: String })
-  remarks: string;
-
-  @ManyToOne(() => Priority, (priority) => priority.tasks)
-  @JoinColumn()
-  priority: Priority;
-
-  @ManyToOne(() => Status, (status) => status.tasks)
-  @JoinColumn()
-  status: Status;
+  @OneToMany(() => Tasks, (tasks) => tasks.status)
+  tasks: Tasks[];
 
   @Exclude()
   @CreateDateColumn({
