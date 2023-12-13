@@ -1,3 +1,3 @@
-export class Priority {
+export class IPriority {
   priority: string;
 }

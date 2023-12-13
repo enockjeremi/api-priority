@@ -1,5 +1,5 @@
-import { Priority } from 'src/tasks/attributes/interfaces/priority.interface';
-import { Status } from 'src/tasks/attributes/interfaces/status.interfaces';
+import { IPriority } from '../../tasks/attributes/interfaces/priority.interface';
+import { IStatus } from '../../tasks/attributes/interfaces/status.interfaces';
 
 export class ITasks {
   //Nombre de la tarea
@@ -7,11 +7,11 @@ export class ITasks {
   //Objetivos a cumplir
   goals: string;
   //Prioridad de la misma
-  priority: Priority;
+  priority: IPriority;
   //Fecha limite de entrega
   deadline: Date;
   //Estado en el que se encuentra la tarea
-  status: Status;
+  status: IStatus;
   //Commentarios o notas
   remarks: string;
 }

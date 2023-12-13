@@ -12,7 +12,9 @@ export class TasksService {
   ) {}
 
   async getAll(): Promise<ITasks[]> {
-    return this.taskRepository.find();
+    return this.taskRepository.find({
+      relations: ['status', 'priority'],
+    });
   }
 
   async create(data: CreateTaskDto): Promise<ITasks> {

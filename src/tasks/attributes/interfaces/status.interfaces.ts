@@ -1,3 +1,3 @@
-export class Status {
+export class IStatus {
   status: string;
 }
