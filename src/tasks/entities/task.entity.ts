@@ -29,11 +29,11 @@ export class Tasks {
   remarks: string;
 
   @ManyToOne(() => Priority, (priority) => priority.tasks)
-  @JoinColumn()
+  @JoinColumn({ name: 'priority_id' })
   priority: Priority;
 
   @ManyToOne(() => Status, (status) => status.tasks)
-  @JoinColumn()
+  @JoinColumn({ name: 'status_id' })
   status: Status;
 
   @Exclude()

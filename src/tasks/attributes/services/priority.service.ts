@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Priority } from '../entities/priority.entity';
-import { IPriority } from '../interfaces/priority.interface';
 import { CreatePriorityDto, UpdatePriorityDto } from '../dtos/priority.dto';
 
 @Injectable()
@@ -12,15 +11,15 @@ export class PriorityService {
     private priorityRepository: Repository<Priority>,
   ) {}
 
-  async getAll(): Promise<IPriority[]> {
+  async getAll() {
     return this.priorityRepository.find();
   }
 
-  async create(data: CreatePriorityDto): Promise<IPriority> {
+  async create(data: CreatePriorityDto) {
     const newPriority = this.priorityRepository.create(data);
     return await this.priorityRepository.save(newPriority);
   }
-  async getOne(id: number): Promise<IPriority> {
+  async getOne(id: number) {
     const priority = await this.priorityRepository.findOne({
       where: { id },
     });
@@ -28,7 +27,7 @@ export class PriorityService {
     return priority;
   }
 
-  async update(id: number, data: UpdatePriorityDto): Promise<IPriority> {
+  async update(id: number, data: UpdatePriorityDto) {
     const priority = await this.priorityRepository.findOne({
       where: { id },
     });

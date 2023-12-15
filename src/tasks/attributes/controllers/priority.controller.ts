@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { PriorityService } from '../services/priority.service';
 import { CreatePriorityDto, UpdatePriorityDto } from '../dtos/priority.dto';
 
@@ -26,7 +34,7 @@ export class PriorityController {
     return this.priorityServices.update(id, data);
   }
 
-  @Get(':priority_id')
+  @Delete(':priority_id')
   delete(@Param('priority_id') id: number) {
     return this.priorityServices.delete(id);
   }

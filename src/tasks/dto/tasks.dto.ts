@@ -13,7 +13,7 @@ export class CreateTaskDto {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  priorityId: number;
+  priorityid: number;
 
   @IsNotEmpty()
   @IsString()
@@ -22,7 +22,7 @@ export class CreateTaskDto {
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
-  statusId: number;
+  statusid: number;
 
   @IsString()
   remarks: string;

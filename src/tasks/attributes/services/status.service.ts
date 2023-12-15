@@ -2,7 +2,6 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Status } from '../entities/status.entity';
-import { IStatus } from '../interfaces/status.interfaces';
 import { CreateStatusDto, UpdateStatusDto } from '../dtos/status.dto';
 
 @Injectable()
@@ -12,15 +11,15 @@ export class StatusService {
     private statusRepository: Repository<Status>,
   ) {}
 
-  async getAll(): Promise<IStatus[]> {
+  async getAll() {
     return this.statusRepository.find();
   }
 
-  async create(data: CreateStatusDto): Promise<IStatus> {
+  async create(data: CreateStatusDto) {
     const newStatus = this.statusRepository.create(data);
     return await this.statusRepository.save(newStatus);
   }
-  async getOne(id: number): Promise<IStatus> {
+  async getOne(id: number) {
     const status = await this.statusRepository.findOne({
       where: { id },
     });
@@ -28,7 +27,7 @@ export class StatusService {
     return status;
   }
 
-  async update(id: number, data: UpdateStatusDto): Promise<IStatus> {
+  async update(id: number, data: UpdateStatusDto) {
     const status = await this.statusRepository.findOne({
       where: { id },
     });

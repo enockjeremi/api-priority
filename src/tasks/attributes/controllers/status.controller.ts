@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { StatusService } from '../services/status.service';
 import { CreateStatusDto, UpdateStatusDto } from '../dtos/status.dto';
 
@@ -26,7 +34,7 @@ export class StatusController {
     return this.statusServices.update(id, data);
   }
 
-  @Get(':status_id')
+  @Delete(':status_id')
   delete(@Param('status_id') id: number) {
     return this.statusServices.delete(id);
   }
