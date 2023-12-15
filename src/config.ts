@@ -9,5 +9,9 @@ export default registerAs('config', () => {
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
     },
+    jwtAccess: {
+      jwtSecret: process.env.JWT_ACCESS_TOKEN_SECRET,
+      jwtExpired: process.env.JWT_ACCESS_TOKEN_EXPIRATION_TIME,
+    },
   };
 });

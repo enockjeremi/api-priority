@@ -56,22 +56,22 @@ export class TasksService {
     return await this.taskRepository.save(task);
   }
 
-  async updateTaskStatus(task_id: number, status_id: number) {
+  async changeTaskStatus(task_id: number, status_id: number) {
     const task = await this.getOne(task_id);
     const status = await this.servicesStatus.getOne(status_id);
 
     task.status = status;
     await this.taskRepository.save(task);
-    return { message: 'Status has been update' };
+    return { message: 'Status has been changed' };
   }
 
-  async updateTaskPriority(task_id: number, priority_id: number) {
+  async changeTaskPriority(task_id: number, priority_id: number) {
     const task = await this.getOne(task_id);
     const priority = await this.servicesPriority.getOne(priority_id);
 
     task.priority = priority;
     await this.taskRepository.save(task);
-    return { message: 'Priority has been update' };
+    return { message: 'Priority has been changed' };
   }
 
   async delete(id: number) {

@@ -27,19 +27,19 @@ export class TasksController {
   }
 
   @Patch(':task_id/status/:status_id')
-  updateTaskStatus(
+  changeTaskStatus(
     @Param('task_id') task_id: number,
     @Param('status_id') status_id: number,
   ) {
-    return this.taskServices.updateTaskStatus(task_id, status_id);
+    return this.taskServices.changeTaskStatus(task_id, status_id);
   }
 
   @Patch(':task_id/priority/:priority_id')
-  updateTaskPriority(
+  changeTaskPriority(
     @Param('task_id') task_id: number,
     @Param('priority_id') priority_id: number,
   ) {
-    return this.taskServices.updateTaskPriority(task_id, priority_id);
+    return this.taskServices.changeTaskPriority(task_id, priority_id);
   }
 
   @Get(':task_id')
