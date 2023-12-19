@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Status } from '../entities/status.entity';
+import { Status } from '../../../common/entities/status.entity';
 import { CreateStatusDto, UpdateStatusDto } from '../dtos/status.dto';
 
 @Injectable()

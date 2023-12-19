@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Status } from './entities/status.entity';
-import { Priority } from './entities/priority.entity';
+import { Status } from '../../common/entities/status.entity';
+import { Priority } from '../../common/entities/priority.entity';
 import { StatusController } from './controllers/status.controller';
 import { PriorityController } from './controllers/priority.controller';
 import { PriorityService } from './services/priority.service';

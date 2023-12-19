@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Priority } from '../entities/priority.entity';
+import { Priority } from '../../../common/entities/priority.entity';
 import { CreatePriorityDto, UpdatePriorityDto } from '../dtos/priority.dto';
 
 @Injectable()

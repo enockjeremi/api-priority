@@ -1,28 +1,25 @@
 import { Exclude } from 'class-transformer';
+import { Tasks } from './task.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class Users {
+export class Status {
+  @Exclude()
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: String, unique: true })
-  username: string;
-
-  @Column({ type: String, unique: true })
-  email: string;
-
   @Column({ type: String })
-  password: string;
+  status: string;
 
-  @Column({ type: String, default: 'user' })
-  role: string;
+  @OneToMany(() => Tasks, (tasks) => tasks.status)
+  tasks: Tasks[];
 
   @Exclude()
   @CreateDateColumn({

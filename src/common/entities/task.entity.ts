@@ -8,8 +8,9 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Status } from '../attributes/entities/status.entity';
-import { Priority } from '../attributes/entities/priority.entity';
+import { Status } from './status.entity';
+import { Priority } from './priority.entity';
+import { Users } from './users.entity';
 
 @Entity()
 export class Tasks {
@@ -35,6 +36,10 @@ export class Tasks {
   @ManyToOne(() => Status, (status) => status.tasks)
   @JoinColumn({ name: 'status_id' })
   status: Status;
+
+  @ManyToOne(() => Users, (user) => user.tasks)
+  @JoinColumn({ name: 'user_id' })
+  user: Users;
 
   @Exclude()
   @CreateDateColumn({

@@ -1,5 +1,5 @@
 import { Exclude } from 'class-transformer';
-import { Tasks } from '../../../tasks/entities/task.entity';
+import { Tasks } from './task.entity';
 import {
   Column,
   CreateDateColumn,
@@ -10,15 +10,23 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Status {
-  @Exclude()
+export class Users {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: String })
-  status: string;
+  @Column({ type: String, unique: true })
+  username: string;
 
-  @OneToMany(() => Tasks, (tasks) => tasks.status)
+  @Column({ type: String, unique: true })
+  email: string;
+
+  @Column({ type: String })
+  password: string;
+
+  @Column({ type: String, default: 'user' })
+  role: string;
+
+  @OneToMany(() => Tasks, (tasks) => tasks.user)
   tasks: Tasks[];
 
   @Exclude()

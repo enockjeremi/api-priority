@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Tasks } from '../entities/task.entity';
+import { Tasks } from '../../common/entities/task.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskDto, UpdateTaskDto } from '../dto/tasks.dto';
 import { PriorityService } from '../attributes/services/priority.service';
@@ -14,26 +14,32 @@ export class TasksService {
     private readonly servicesStatus: StatusService,
   ) {}
 
-  async getAll() {
+  async getAll(id: number) {
     return this.taskRepository.find({
+      where: {
+        user: {
+          id,
+        },
+      },
       relations: ['status', 'priority'],
     });
   }
 
-  async create(data: CreateTaskDto) {
+  async create(data: CreateTaskDto, id: any) {
     const newTask = this.taskRepository.create(data);
 
     const status = await this.servicesStatus.getOne(data.statusid);
     const prioriry = await this.servicesPriority.getOne(data.priorityid);
 
+    newTask.user = id;
     newTask.priority = prioriry;
     newTask.status = status;
 
     return await this.taskRepository.save(newTask);
   }
-  async getOne(id: number) {
+  async getOne(id: number, userid: number) {
     const task = await this.taskRepository.findOne({
-      where: { id },
+      where: { user: { id: userid }, id },
       relations: ['status', 'priority'],
     });
     if (!task) throw new BadRequestException('Task not found');
@@ -56,23 +62,23 @@ export class TasksService {
     return await this.taskRepository.save(task);
   }
 
-  async changeTaskStatus(task_id: number, status_id: number) {
-    const task = await this.getOne(task_id);
-    const status = await this.servicesStatus.getOne(status_id);
+  // async changeTaskStatus(task_id: number, status_id: number) {
+  //   const task = await this.getOne(task_id);
+  //   const status = await this.servicesStatus.getOne(status_id);
 
-    task.status = status;
-    await this.taskRepository.save(task);
-    return { message: 'Status has been changed' };
-  }
+  //   task.status = status;
+  //   await this.taskRepository.save(task);
+  //   return { message: 'Status has been changed' };
+  // }
 
-  async changeTaskPriority(task_id: number, priority_id: number) {
-    const task = await this.getOne(task_id);
-    const priority = await this.servicesPriority.getOne(priority_id);
+  // async changeTaskPriority(task_id: number, priority_id: number) {
+  //   const task = await this.getOne(task_id);
+  //   const priority = await this.servicesPriority.getOne(priority_id);
 
-    task.priority = priority;
-    await this.taskRepository.save(task);
-    return { message: 'Priority has been changed' };
-  }
+  //   task.priority = priority;
+  //   await this.taskRepository.save(task);
+  //   return { message: 'Priority has been changed' };
+  // }
 
   async delete(id: number) {
     const task = await this.taskRepository.findOne({
