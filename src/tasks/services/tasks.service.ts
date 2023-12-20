@@ -62,27 +62,28 @@ export class TasksService {
     return await this.taskRepository.save(task);
   }
 
-  // async changeTaskStatus(task_id: number, status_id: number) {
-  //   const task = await this.getOne(task_id);
-  //   const status = await this.servicesStatus.getOne(status_id);
+  async changeTaskStatus(task_id: number, user: any, status_id: number) {
+    const task = await this.getOne(task_id, user);
+    const status = await this.servicesStatus.getOne(status_id);
 
-  //   task.status = status;
-  //   await this.taskRepository.save(task);
-  //   return { message: 'Status has been changed' };
-  // }
+    task.status = status;
+    await this.taskRepository.save(task);
+    return { message: 'Status has been changed' };
+  }
 
-  // async changeTaskPriority(task_id: number, priority_id: number) {
-  //   const task = await this.getOne(task_id);
-  //   const priority = await this.servicesPriority.getOne(priority_id);
+  async changeTaskPriority(task_id: number, user: any, priority_id: number) {
+    const task = await this.getOne(task_id, user);
+    const priority = await this.servicesPriority.getOne(priority_id);
 
-  //   task.priority = priority;
-  //   await this.taskRepository.save(task);
-  //   return { message: 'Priority has been changed' };
-  // }
+    task.priority = priority;
+    await this.taskRepository.save(task);
+    return { message: 'Priority has been changed' };
+  }
 
-  async delete(id: number) {
+  async delete(id: number, user: any) {
     const task = await this.taskRepository.findOne({
-      where: { id },
+      where: { user: { id: user }, id },
+      relations: ['status', 'priority'],
     });
     if (!task) throw new BadRequestException('Task not found');
     await this.taskRepository.delete(task.id);
