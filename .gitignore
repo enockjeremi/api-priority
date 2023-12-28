@@ -2,7 +2,8 @@
 /dist
 /node_modules
 db
-.env
+
+.env.dev
 .stag.env
 .prod.env
 
