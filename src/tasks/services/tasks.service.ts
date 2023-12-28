@@ -46,12 +46,12 @@ export class TasksService {
     return task;
   }
 
-  async update(id: number, data: UpdateTaskDto) {
+  async update(id: number, user: number, data: UpdateTaskDto) {
     const task = await this.taskRepository.findOne({
-      where: { id },
+      where: { user: { id: user }, id },
+      relations: ['status', 'priority'],
     });
     if (!task) throw new BadRequestException('Task not found');
-
     const status = await this.servicesStatus.getOne(data.statusid);
     const prioriry = await this.servicesPriority.getOne(data.priorityid);
 

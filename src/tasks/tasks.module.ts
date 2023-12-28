@@ -8,7 +8,6 @@ import { PriorityService } from './attributes/services/priority.service';
 import { StatusService } from './attributes/services/status.service';
 import { Status } from '../common/entities/status.entity';
 import { Priority } from '../common/entities/priority.entity';
-import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -16,6 +15,6 @@ import { JwtService } from '@nestjs/jwt';
     AttributesModule,
   ],
   controllers: [TasksController],
-  providers: [TasksService, StatusService, PriorityService, JwtService],
+  providers: [TasksService, StatusService, PriorityService],
 })
 export class TasksModule {}
