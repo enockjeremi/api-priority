@@ -13,7 +13,9 @@ import { CreatePriorityDto, UpdatePriorityDto } from '../dtos/priority.dto';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/models/roles.models';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Priority')
 @UseGuards(RolesGuard)
 @Controller('priority')
 export class PriorityController {
