@@ -7,11 +7,12 @@ import { AuthModule } from './auth/auth.module';
 
 import * as Joi from 'joi';
 import config from './config';
+import { enviroments } from './enviroments';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env'],
+      envFilePath: enviroments[process.env.NODE_ENV] || '.env.dev',
       isGlobal: true,
       load: [config],
       validationSchema: Joi.object({
