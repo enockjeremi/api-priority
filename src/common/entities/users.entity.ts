@@ -20,6 +20,7 @@ export class Users {
   @Column({ type: String, unique: true })
   email: string;
 
+  @Exclude()
   @Column({ type: String })
   password: string;
 

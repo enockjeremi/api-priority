@@ -32,6 +32,14 @@ export class UsersService {
     return user;
   }
 
+  async getUserByToken(id: number) {
+    const user = await this.userRepository.findOne({
+      where: { id },
+    });
+    if (!user) throw new BadRequestException('User not found');
+    return user;
+  }
+
   async update(id: number, data: UpdateUserDto) {
     // await this.uniqueValues(data.username, data.email);
     const user = await this.userRepository.findOne({

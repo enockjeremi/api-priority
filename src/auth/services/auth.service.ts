@@ -28,6 +28,12 @@ export class AuthService {
     const payload: PayloadToken = { sub: user.id, role: user.role };
     return {
       access_token: this.jwt.sign(payload),
+      user,
     };
+  }
+
+  async getUserByToken(id: number) {
+    const user = await this.userServices.getUserByToken(id);
+    return user;
   }
 }

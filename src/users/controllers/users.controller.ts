@@ -10,16 +10,21 @@ import {
 import { UsersService } from '../services/users.service';
 import { CreateUserDto, UpdateUserDto } from '../dto/users.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Roles } from 'src/auth/decorators/roles.decorator';
+import { Role } from 'src/auth/models/roles.models';
 
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private userServices: UsersService) {}
+
+  @Roles(Role.ADMIN)
   @Get()
   getAll() {
     return this.userServices.getAll();
   }
 
+  @Get()
   @Post()
   create(@Body() data: CreateUserDto) {
     return this.userServices.create(data);
@@ -35,6 +40,7 @@ export class UsersController {
     return this.userServices.update(id, data);
   }
 
+  @Roles(Role.ADMIN)
   @Delete(':user_id')
   delete(@Param('user_id') id: number) {
     return this.userServices.delete(id);
