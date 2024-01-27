@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateTaskDto, UpdateTaskDto } from '../dto/tasks.dto';
 import { PriorityService } from '../attributes/services/priority.service';
 import { StatusService } from '../attributes/services/status.service';
+import { WorkspacesService } from '../../workspaces/services/workspaces.service';
 
 @Injectable()
 export class TasksService {
@@ -12,13 +13,14 @@ export class TasksService {
     @InjectRepository(Tasks) private taskRepository: Repository<Tasks>,
     private readonly servicesPriority: PriorityService,
     private readonly servicesStatus: StatusService,
+    private readonly servicesWorkspaces: WorkspacesService,
   ) {}
 
   async getAll(id: number) {
     return this.taskRepository.find({
       where: { user: { id } },
       order: { createAt: 'DESC' },
-      relations: ['status', 'priority'],
+      relations: ['status', 'priority', 'workspaces'],
     });
   }
 
@@ -32,16 +34,22 @@ export class TasksService {
 
   async create(data: CreateTaskDto, id: any) {
     const newTask = this.taskRepository.create(data);
-
+    const workspaces = await this.servicesWorkspaces.getOne(
+      data.workspacesid,
+      id,
+    );
+    console.log(workspaces);
     const status = await this.servicesStatus.getOne(data.statusid);
     const prioriry = await this.servicesPriority.getOne(data.priorityid);
 
     newTask.user = id;
     newTask.priority = prioriry;
     newTask.status = status;
+    newTask.workspaces = workspaces;
 
     return await this.taskRepository.save(newTask);
   }
+
   async getOne(id: number, userid: number) {
     const task = await this.taskRepository.findOne({
       where: { user: { id: userid }, id },

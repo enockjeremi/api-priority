@@ -21,7 +21,9 @@ export class UsersService {
   }
 
   async getAll() {
-    return await this.userRepository.find({});
+    return await this.userRepository.find({
+      relations: ['workspaces'],
+    });
   }
 
   async getOne(id: number) {

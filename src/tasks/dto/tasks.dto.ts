@@ -24,8 +24,10 @@ export class CreateTaskDto {
   @IsPositive()
   statusid: number;
 
-  @IsString()
-  remarks: string;
+  @IsNotEmpty()
+  @IsNumber()
+  @IsPositive()
+  workspacesid: number;
 }
 
 export class UpdateTaskDto extends PartialType(CreateTaskDto) {}

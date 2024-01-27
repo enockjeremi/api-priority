@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Workspaces } from './workspaces.entity';
 
 @Entity()
 export class Users {
@@ -29,6 +30,9 @@ export class Users {
 
   @OneToMany(() => Tasks, (tasks) => tasks.user)
   tasks: Tasks[];
+
+  @OneToMany(() => Workspaces, (workspaces) => workspaces.user)
+  workspaces: Workspaces[];
 
   @Exclude()
   @CreateDateColumn({

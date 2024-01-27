@@ -1,49 +1,28 @@
 import { Exclude } from 'class-transformer';
+import { Tasks } from './task.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
-  Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Status } from './status.entity';
-import { Priority } from './priority.entity';
 import { Users } from './users.entity';
-import { Workspaces } from './workspaces.entity';
 
 @Entity()
-export class Tasks {
-  @Index()
+export class Workspaces {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: String })
   name: string;
 
-  @Column({ type: String })
-  goals: string;
-
-  @Column({ type: String })
-  deadline: Date;
-
-  // @Column({ type: String })
-  // remarks: string;
-
-  @ManyToOne(() => Priority, (priority) => priority.tasks)
-  @JoinColumn({ name: 'priority_id' })
-  priority: Priority;
-
-  @ManyToOne(() => Status, (status) => status.tasks)
-  @JoinColumn({ name: 'status_id' })
-  status: Status;
-
-  @ManyToOne(() => Workspaces, (workspaces) => workspaces.tasks, {
-    onDelete: 'CASCADE',
-  })
-  workspaces: Workspaces;
+  @OneToMany(() => Tasks, (tasks) => tasks.workspaces)
+  @JoinColumn({ name: 'workspaces_id' })
+  tasks: Tasks[];
 
   @ManyToOne(() => Users, (user) => user.tasks)
   @JoinColumn({ name: 'user_id' })

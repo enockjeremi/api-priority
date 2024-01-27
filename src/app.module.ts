@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import * as Joi from 'joi';
 import config from './config';
 import { enviroments } from './enviroments';
+import { WorkspacesModule } from './workspaces/workspaces.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { enviroments } from './enviroments';
     TasksModule,
     UsersModule,
     AuthModule,
+    WorkspacesModule,
   ],
 })
 export class AppModule {}
