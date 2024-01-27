@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -14,6 +15,7 @@ import { Users } from './users.entity';
 
 @Entity()
 export class Tasks {
+  @Index()
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -26,8 +28,8 @@ export class Tasks {
   @Column({ type: String })
   deadline: Date;
 
-  @Column({ type: String })
-  remarks: string;
+  // @Column({ type: String })
+  // remarks: string;
 
   @ManyToOne(() => Priority, (priority) => priority.tasks)
   @JoinColumn({ name: 'priority_id' })

@@ -16,12 +16,17 @@ export class TasksService {
 
   async getAll(id: number) {
     return this.taskRepository.find({
-      where: {
-        user: {
-          id,
-        },
-      },
+      where: { user: { id } },
+      order: { createAt: 'DESC' },
       relations: ['status', 'priority'],
+    });
+  }
+
+  async getAllIDs(id: number) {
+    return this.taskRepository.find({
+      where: { user: { id } },
+      order: { createAt: 'DESC' },
+      select: { id: true },
     });
   }
 

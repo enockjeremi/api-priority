@@ -12,6 +12,7 @@ import { CreateUserDto, UpdateUserDto } from '../dto/users.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/models/roles.models';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @ApiTags('Users')
 @Controller('users')
@@ -24,7 +25,7 @@ export class UsersController {
     return this.userServices.getAll();
   }
 
-  @Get()
+  @Public()
   @Post()
   create(@Body() data: CreateUserDto) {
     return this.userServices.create(data);

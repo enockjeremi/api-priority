@@ -73,10 +73,10 @@ export class UsersService {
     const uniqueUser = await this.userRepository.find({ where: { username } });
     const uniqueEmail = await this.userRepository.find({ where: { email } });
     if (uniqueUser.length > 0) {
-      throw new BadRequestException('Username already exists.');
+      throw new BadRequestException('El nombre de usuario ya existe.');
     }
     if (uniqueEmail.length > 0) {
-      throw new BadRequestException('Email already exists.');
+      throw new BadRequestException('El email ya existe.');
     }
     return true;
   }

@@ -11,7 +11,6 @@ import {
 
 @Entity()
 export class Status {
-  @Exclude()
   @PrimaryGeneratedColumn()
   id: number;
 

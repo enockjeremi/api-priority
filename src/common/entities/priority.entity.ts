@@ -11,7 +11,6 @@ import {
 
 @Entity()
 export class Priority {
-  @Exclude()
   @PrimaryGeneratedColumn()
   id: number;
 

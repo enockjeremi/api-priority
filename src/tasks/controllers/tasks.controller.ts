@@ -23,6 +23,11 @@ export class TasksController {
     return this.taskServices.getAll(userId);
   }
 
+  @Get('all-ids')
+  getAllIDs(@UserID() userId: number) {
+    return this.taskServices.getAllIDs(userId);
+  }
+
   @Post()
   create(@Body() data: CreateTaskDto, @UserID() userId: number) {
     return this.taskServices.create(data, userId);

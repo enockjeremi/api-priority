@@ -9,9 +9,9 @@ export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT),
-  username: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  username: 'enock',
+  password: 'enock',
+  database: 'priority',
   logging: false,
   synchronize: false,
   entities: [
@@ -19,7 +19,7 @@ export const dataSourceOptions: DataSourceOptions = {
     'src/**/**/*.entity.ts',
     'src/**/**/**/*.entity.ts',
   ],
-  migrations: ['src/database/migrations/*.ts'],
+  migrations: ['src/database/migration/*.ts'],
   migrationsTableName: 'migrations',
 };
 
