@@ -25,6 +25,19 @@ export class WorkspacesController {
     return this.workspaceServices.getAll(userId);
   }
 
+  @Get(':workspaces_id/status/:status_id')
+  filterByStatus(
+    @UserID() userId: number,
+    @Param('workspaces_id') workspacesId: number,
+    @Param('status_id') statusId: number,
+  ) {
+    return this.workspaceServices.filterByStatus(
+      userId,
+      workspacesId,
+      statusId,
+    );
+  }
+
   @Post()
   create(@Body() data: CreateWorkspacesDto, @UserID() userId: number) {
     return this.workspaceServices.create(data, userId);

@@ -8,16 +8,12 @@ export class CreateTaskDto {
 
   @IsNotEmpty()
   @IsString()
-  goals: string;
+  description: string;
 
   @IsNotEmpty()
   @IsNumber()
   @IsPositive()
   priorityid: number;
-
-  @IsNotEmpty()
-  @IsString()
-  deadline: string;
 
   @IsNotEmpty()
   @IsNumber()

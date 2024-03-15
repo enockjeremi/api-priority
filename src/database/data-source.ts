@@ -19,7 +19,7 @@ export const dataSourceOptions: DataSourceOptions = {
     'src/**/**/*.entity.ts',
     'src/**/**/**/*.entity.ts',
   ],
-  migrations: ['src/database/migration/*.ts'],
+  migrations: ['src/database/migrations/*.ts'],
   migrationsTableName: 'migrations',
 };
 

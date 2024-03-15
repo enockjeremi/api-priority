@@ -15,11 +15,32 @@ export class WorkspacesService {
   ) {}
 
   async getAll(id: any) {
-    return this.workspacesRepository.find({
+    return await this.workspacesRepository.find({
       where: { user: { id } },
-      order: { createAt: 'DESC' },
-      relations: ['tasks'],
+      order: { tasks: { createAt: 'DESC' } },
     });
+  }
+
+  async filterByStatus(userId: number, workspacesId: number, statusId: number) {
+    const workspacesAll =
+      Number(statusId) === 0
+        ? await this.workspacesRepository.findOne({
+            where: {
+              id: workspacesId,
+              user: { id: userId },
+            },
+            relations: { tasks: { status: true, priority: true } },
+          })
+        : await this.workspacesRepository.findOne({
+            where: {
+              id: workspacesId,
+              user: { id: userId },
+              tasks: { status: { id: statusId } },
+            },
+            relations: { tasks: { status: true, priority: true } },
+          });
+
+    return workspacesAll;
   }
 
   async create(data: CreateWorkspacesDto, userId: any) {
@@ -28,10 +49,17 @@ export class WorkspacesService {
 
     return await this.workspacesRepository.save(newWorkspaces);
   }
+
   async getOne(id: number, userId: any) {
     const workspaces = await this.workspacesRepository.findOne({
       where: { user: { id: userId }, id },
-      relations: ['tasks'],
+      order: { createAt: 'desc' },
+      relations: {
+        tasks: {
+          status: true,
+          priority: true,
+        },
+      },
     });
     if (!workspaces) throw new BadRequestException('Workspaces not found');
     return workspaces;

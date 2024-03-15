@@ -12,6 +12,7 @@ import { TasksService } from '../services/tasks.service';
 import { CreateTaskDto, UpdateTaskDto } from '../dto/tasks.dto';
 import { UserID } from 'src/auth/decorators/user-id.decorator';
 import { ApiTags } from '@nestjs/swagger';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @ApiTags('Tasks')
 @Controller('tasks')
@@ -21,6 +22,20 @@ export class TasksController {
   @Get()
   getAll(@UserID() userId: number) {
     return this.taskServices.getAll(userId);
+  }
+
+  @Get('all-status/:workspaces_id')
+  getAllByStatus(
+    @UserID() userId: number,
+    @Param('workspaces_id') workspaces_id: number,
+  ) {
+    return this.taskServices.getAllByStatus(userId, workspaces_id);
+  }
+
+  @Public()
+  @Get('status-priority')
+  getStatusAndPriorityList() {
+    return this.taskServices.getSatusAndPriorityList();
   }
 
   @Get('all-ids')

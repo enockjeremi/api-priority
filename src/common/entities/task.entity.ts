@@ -24,13 +24,7 @@ export class Tasks {
   name: string;
 
   @Column({ type: String })
-  goals: string;
-
-  @Column({ type: String })
-  deadline: Date;
-
-  // @Column({ type: String })
-  // remarks: string;
+  description: string;
 
   @ManyToOne(() => Priority, (priority) => priority.tasks)
   @JoinColumn({ name: 'priority_id' })
