@@ -20,4 +20,4 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=marines
 
     ports:
-      - 5055:80
+      - 5050:80

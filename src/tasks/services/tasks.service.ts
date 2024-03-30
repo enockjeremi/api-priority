@@ -17,11 +17,29 @@ export class TasksService {
   ) {}
 
   async getAll(id: number) {
-    return this.taskRepository.find({
+    const all = await this.taskRepository.find({
       where: { user: { id } },
       order: { createAt: 'DESC' },
       relations: ['status', 'priority', 'workspaces'],
     });
+    const create = await this.taskRepository.find({
+      where: { user: { id } },
+      take: 3,
+      order: { createAt: 'DESC' },
+      relations: ['status', 'priority', 'workspaces'],
+    });
+    const update = await this.taskRepository.find({
+      where: { user: { id } },
+      take: 3,
+      order: { updateAt: 'DESC' },
+      relations: ['status', 'priority', 'workspaces'],
+    });
+    const filter = await this.taskRepository.find({
+      where: { user: { id } },
+      order: { updateAt: 'DESC' },
+      relations: ['status', 'priority', 'workspaces'],
+    });
+    return { all, create, update, filter };
   }
 
   async getAllByStatus(id: number, workspaces_id: number) {
