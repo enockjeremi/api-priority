@@ -20,3 +20,9 @@ export class CreateUserDto {
 }
 
 export class UpdateUserDto extends PartialType(CreateUserDto) {}
+
+export class VerifyPasswordDto {
+  @IsNotEmpty()
+  @IsString()
+  readonly password: string;
+}

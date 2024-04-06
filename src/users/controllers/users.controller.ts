@@ -8,11 +8,16 @@ import {
   Put,
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
-import { CreateUserDto, UpdateUserDto } from '../dto/users.dto';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  VerifyPasswordDto,
+} from '../dto/users.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/models/roles.models';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { UserID } from 'src/auth/decorators/user-id.decorator';
 
 @ApiTags('Users')
 @Controller('users')
@@ -39,6 +44,11 @@ export class UsersController {
   @Put(':user_id')
   update(@Body() data: UpdateUserDto, @Param('user_id') id: number) {
     return this.userServices.update(id, data);
+  }
+
+  @Post('compare-password')
+  verify(@UserID() userId: number, @Body() data: VerifyPasswordDto) {
+    return this.userServices.verifyPassword(userId, data);
   }
 
   @Roles(Role.ADMIN)

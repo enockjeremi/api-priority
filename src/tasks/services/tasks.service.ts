@@ -104,7 +104,6 @@ export class TasksService {
       data.workspacesid,
       id,
     );
-    console.log(workspaces);
     const status = await this.servicesStatus.getOne(data.statusid);
     const prioriry = await this.servicesPriority.getOne(data.priorityid);
 

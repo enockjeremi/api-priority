@@ -3,7 +3,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Users } from '../../common/entities/users.entity';
 import { Repository } from 'typeorm';
-import { CreateUserDto, UpdateUserDto } from '../dto/users.dto';
+import {
+  CreateUserDto,
+  UpdateUserDto,
+  VerifyPasswordDto,
+} from '../dto/users.dto';
 
 @Injectable()
 export class UsersService {
@@ -49,7 +53,10 @@ export class UsersService {
     });
     if (!user) throw new BadRequestException('User not found');
 
-    this.userRepository.merge(user, data);
+    const hash = await this.hashPassword(data.password);
+    const body = { ...data, password: hash };
+
+    this.userRepository.merge(user, body);
     return await this.userRepository.save(user);
   }
 
@@ -81,5 +88,11 @@ export class UsersService {
       throw new BadRequestException('El email ya existe.');
     }
     return true;
+  }
+
+  async verifyPassword(userId: number, data: VerifyPasswordDto) {
+    const user = this.getOne(userId);
+    const isMatch = bcrypt.compare(data.password, (await user).password);
+    return isMatch;
   }
 }
