@@ -24,23 +24,18 @@ export class TasksController {
     return this.taskServices.getAll(userId);
   }
 
-  @Get('all-status/:workspaces_id')
-  getAllByStatus(
+  @Get('workspaces/:workspacesId')
+  getTaskByWorkspaces(
     @UserID() userId: number,
-    @Param('workspaces_id') workspaces_id: number,
+    @Param('workspacesId') workspacesId: number,
   ) {
-    return this.taskServices.getAllByStatus(userId, workspaces_id);
+    return this.taskServices.getTaskByWorkspaces(userId, workspacesId);
   }
 
   @Public()
   @Get('status-priority')
   getStatusAndPriorityList() {
     return this.taskServices.getSatusAndPriorityList();
-  }
-
-  @Get('all-ids')
-  getAllIDs(@UserID() userId: number) {
-    return this.taskServices.getAllIDs(userId);
   }
 
   @Post()

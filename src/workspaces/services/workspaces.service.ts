@@ -21,28 +21,6 @@ export class WorkspacesService {
     });
   }
 
-  async filterByStatus(userId: number, workspacesId: number, statusId: number) {
-    const workspacesAll =
-      Number(statusId) === 0
-        ? await this.workspacesRepository.findOne({
-            where: {
-              id: workspacesId,
-              user: { id: userId },
-            },
-            relations: { tasks: { status: true, priority: true } },
-          })
-        : await this.workspacesRepository.findOne({
-            where: {
-              id: workspacesId,
-              user: { id: userId },
-              tasks: { status: { id: statusId } },
-            },
-            relations: { tasks: { status: true, priority: true } },
-          });
-
-    return workspacesAll;
-  }
-
   async create(data: CreateWorkspacesDto, userId: any) {
     const newWorkspaces = this.workspacesRepository.create(data);
     newWorkspaces.user = userId;

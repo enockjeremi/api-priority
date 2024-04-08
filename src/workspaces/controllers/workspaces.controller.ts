@@ -15,7 +15,7 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import { UserID } from 'src/auth/decorators/user-id.decorator';
 
-@ApiTags('Priority')
+@ApiTags('Workspaces')
 @Controller('workspaces')
 export class WorkspacesController {
   constructor(private readonly workspaceServices: WorkspacesService) {}
@@ -23,19 +23,6 @@ export class WorkspacesController {
   @Get()
   getAll(@UserID() userId: number) {
     return this.workspaceServices.getAll(userId);
-  }
-
-  @Get(':workspaces_id/status/:status_id')
-  filterByStatus(
-    @UserID() userId: number,
-    @Param('workspaces_id') workspacesId: number,
-    @Param('status_id') statusId: number,
-  ) {
-    return this.workspaceServices.filterByStatus(
-      userId,
-      workspacesId,
-      statusId,
-    );
   }
 
   @Post()

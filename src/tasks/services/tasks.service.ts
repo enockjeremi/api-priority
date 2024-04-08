@@ -17,85 +17,25 @@ export class TasksService {
   ) {}
 
   async getAll(id: number) {
-    const all = await this.taskRepository.find({
-      where: { user: { id } },
-      order: { createAt: 'DESC' },
-      relations: ['status', 'priority', 'workspaces'],
-    });
-    const create = await this.taskRepository.find({
-      where: { user: { id } },
-      take: 3,
-      order: { createAt: 'DESC' },
-      relations: ['status', 'priority', 'workspaces'],
-    });
-    const update = await this.taskRepository.find({
-      where: { user: { id } },
-      take: 3,
-      order: { updateAt: 'DESC' },
-      relations: ['status', 'priority', 'workspaces'],
-    });
-    const filter = await this.taskRepository.find({
+    return await this.taskRepository.find({
       where: { user: { id } },
       order: { updateAt: 'DESC' },
       relations: ['status', 'priority', 'workspaces'],
     });
-    return { all, create, update, filter };
   }
 
-  async getAllByStatus(id: number, workspaces_id: number) {
-    const order = 'asc';
-    const status_complete = await this.taskRepository.find({
-      where: {
-        user: { id },
-        workspaces: { id: workspaces_id },
-        status: { id: 1 },
-      },
-      order: { priority: { id: order }, updateAt: 'ASC' },
+  async getTaskByWorkspaces(id: number, workspacesId: number) {
+    return await this.taskRepository.find({
+      where: { user: { id }, workspaces: { id: workspacesId } },
+      order: { updateAt: 'DESC' },
       relations: ['status', 'priority', 'workspaces'],
     });
-
-    const status_process = await this.taskRepository.find({
-      where: {
-        user: { id },
-        workspaces: { id: workspaces_id },
-        status: { id: 2 },
-      },
-      order: { priority: { id: order }, updateAt: 'DESC' },
-      relations: ['status', 'priority', 'workspaces'],
-    });
-
-    const status_pending = await this.taskRepository.find({
-      where: {
-        user: { id },
-        workspaces: { id: workspaces_id },
-        status: { id: 3 },
-      },
-      order: { priority: { id: order }, updateAt: 'ASC' },
-      relations: ['status', 'priority', 'workspaces'],
-    });
-
-    const status_pause = await this.taskRepository.find({
-      where: {
-        user: { id },
-        workspaces: { id: workspaces_id },
-        status: { id: 4 },
-      },
-      order: { priority: { id: order }, updateAt: 'ASC' },
-      relations: ['status', 'priority', 'workspaces'],
-    });
-    return { status_complete, status_process, status_pending, status_pause };
   }
+
   async getSatusAndPriorityList() {
     const status = await this.servicesStatus.getAll();
     const priority = await this.servicesPriority.getAll();
     return { status, priority };
-  }
-  async getAllIDs(id: number) {
-    return this.taskRepository.find({
-      where: { user: { id } },
-      order: { createAt: 'DESC' },
-      select: { id: true },
-    });
   }
 
   async create(data: CreateTaskDto, id: any) {
