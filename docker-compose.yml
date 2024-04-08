@@ -7,8 +7,8 @@ services:
       - 5432:5432
     environment:
       POSTGRES_DB: priority
-      POSTGRES_USER: enock
-      POSTGRES_PASSWORD: enock
+      POSTGRES_USER: prueba
+      POSTGRES_PASSWORD: prueba
     volumes:
       - ./db:/var/lib/postgresql/data
 
@@ -17,7 +17,7 @@ services:
 
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@admin.com
-      - PGADMIN_DEFAULT_PASSWORD=marines
+      - PGADMIN_DEFAULT_PASSWORD=prueba
 
     ports:
       - 5050:80
